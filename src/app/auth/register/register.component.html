@@ -23,7 +23,9 @@
                 </div>
 
                 <div class="form-group">
-                    <button [disabled]="f.invalid" class="btn btn-primary submit-btn btn-block">Crear cuenta</button>
+                    <button [disabled]="f.invalid || loading" class="btn btn-primary submit-btn btn-block"> 
+                        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i> {{ !loading ? 'Crear cuenta': 'Creando...' }}
+                    </button>
                 </div>
                 <div class="text-block text-center my-3">
                     <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>

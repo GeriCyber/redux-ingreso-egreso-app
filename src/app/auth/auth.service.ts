@@ -4,19 +4,24 @@ import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Appstate } from '../app.reducer';
+import { ActivarLoadingAction } from '../shared/ui.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router, private store: Store<Appstate>) { }
 
   crearUsuario( email: string, password: string, name?: string): Promise<any> {
+    this.store.dispatch(new ActivarLoadingAction());
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   login(email: string, password: string): Promise<any> {
+    this.store.dispatch(new ActivarLoadingAction());
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
