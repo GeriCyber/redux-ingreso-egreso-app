@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+
+  crearUsuario( email: string, password: string, name?: string): Promise<any> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  login(email: string, password: string): Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  logout(): Promise<any> {
+    return this.afAuth.auth.signOut();
+  }
+
+  initAuthListener(): Observable<firebase.User> {
+    return this.afAuth.authState;
+  }
+
+  isAuth() {
+    return this.afAuth.authState.pipe(
+      map((fbUser) => {
+        if (fbUser) {
+          return true;
+        } else {
+          this.router.navigate(['/login']);
+        }
+      })
+    );
+  }
+}

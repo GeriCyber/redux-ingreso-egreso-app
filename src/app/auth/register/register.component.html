@@ -5,35 +5,30 @@
         <div class="col-lg-4 mx-auto">
             <h2 class="text-center mb-4">Registro</h2>
             <div class="auto-form-wrapper">
-            <form action="#">
+            <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
                 <div class="form-group">
-                <div class="input-group">
-                    <input type="email" class="form-control" placeholder="Correo">
-                    <div class="input-group-append">
-                    <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
-                    </span>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Correo" required ngModel name="email">
                     </div>
                 </div>
-                </div>
                 <div class="form-group">
-                <div class="input-group">
-                    <input type="password" class="form-control" placeholder="Password">
-                    <div class="input-group-append">
-                    <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
-                    </span>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Nombre" required ngModel name="name">
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="Password" required ngModel name="password">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                <button class="btn btn-primary submit-btn btn-block">Crear cuenta</button>
+                    <button [disabled]="f.invalid" class="btn btn-primary submit-btn btn-block">Crear cuenta</button>
                 </div>
                 <div class="text-block text-center my-3">
-                <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>
-                <br>
-                <a [routerLink]="['/login']" class="text-black text-small">Login</a>
+                    <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>
+                    <br>
+                    <a [routerLink]="['/login']" class="text-black text-small">Login</a>
                 </div>
             </form>
             </div>
