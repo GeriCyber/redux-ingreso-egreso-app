@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Appstate } from '../app.reducer';
@@ -12,6 +12,8 @@ import { ActivarLoadingAction } from '../shared/ui.actions';
   providedIn: 'root'
 })
 export class AuthService {
+
+  private user: any;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private store: Store<Appstate>) { }
 
@@ -43,5 +45,17 @@ export class AuthService {
         }
       })
     );
+  }
+
+  getUser(): any {
+    this.store.select('auth')
+      .subscribe((user) => {
+        if (user) {
+          this.user = user.user;
+        } else {
+          this.user = null;
+        }
+      });
+    return {...this.user};
   }
 }

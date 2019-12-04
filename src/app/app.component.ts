@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
             .subscribe((user: UserDto) => {
               const newUser = new User(user);
               this.store.dispatch(new SetUserAction(newUser));
-              console.log(newUser);
             });
         } else {
           this.userSubscription.unsubscribe();

@@ -15,11 +15,18 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>Descripción</td>
-                    <td>Monto</td>
-                    <td>Tipo</td>
-                    <td>acciones</td>
+                <tr *ngFor="let item of items | sortItems">
+                    <td>{{item.description}}</td>
+                    <td>{{item.amount | currency}}</td>
+                    <td class="font-weight-bold" [ngClass]="{'text-success': item.type === 'ingreso', 'text-danger': item.type === 'egreso'}">
+                        {{item.type}}
+                    </td>
+                    <td>
+                        <button (click)="deleteItem(item)" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i> 
+                            Borrar 
+                        </button>
+                    </td>
                 </tr>
                 </tbody>
 
